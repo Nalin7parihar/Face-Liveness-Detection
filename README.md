@@ -38,6 +38,13 @@ The training/test loss curves for each experiment are shown below:
   <br>
 ![mobilenet](loss/plot_mobilenet.png)
 
+## Results
+- **LivenessNet**
+ <br>
+![liveness1](results/LivenessNet.png)
+- **MobileNetV3**
+  <br>
+![mobilenet1](results/mobilenetv3.png)
 ## Requirements:
 
 * **python > 3.6**
@@ -52,7 +59,7 @@ The training/test loss curves for each experiment are shown below:
 https://github.com/Khavanw/Face-Liveness-Detection.git
 ```
 - Collect the dataset by recording a video of a real face and a video from an electronic device (fake)
-- **structure**
+- Structure
 ```
 videos/real
 videos/fake
@@ -68,4 +75,8 @@ python gather_examples.py --input videos/fake --output dataset/fake --detector d
 - Train model:
 ```bash
 python train.py --dataset dataset --model model/livenessnet.py --le le.pickle 
+```
+- Deploy the model on a real-time video stream:
+```bash
+python liveness_demo.py --model best_model/model.keras --le le.pickle --detector detector
 ```
