@@ -29,8 +29,43 @@ The dataset for training the models is collected by recording videos of real hum
 Resize images to 32x32 pixels to standardize input size for the model.  Convert the data list into a NumPy array. Then, normalize the data by dividing all pixel intensity values by 255 to scale the values to the range [0, 1]. Convert integer labels into One-Hot Encoded representations to prepare for model training. (Use 2 classes for the binary classification task.)
 ### Data Augmentation
 Use the ImageDataGenerator class from the Keras library to perform data augmentation on the image training set. Data augmentation is a technique that generates more training samples from the existing dataset by applying random transformations to the images. This helps deep learning models avoid overfitting and improves generalization capability.
-### Traning model
+## Experiments:
+The training/test loss curves for each experiment are shown below:
+- **LinessNet**
+  <br>
+![liveness](loss/plot_liveness.png)
+- **MobileNetV3**
+  <br>
+![mobilenet](loss/plot_mobilenet.png)
 
-### Real-time video stream
-## Requirements
+## Requirements:
+
+* **python > 3.6**
+* **opencv (cv2)**
+* **numpy**
+* **tensorflow**
+* **matplotlib**
+
 ## How to use my code
+- Clone this repository:
+```bash
+https://github.com/Khavanw/Face-Liveness-Detection.git
+```
+- Collect the dataset by recording a video of a real face and a video from an electronic device (fake)
+- **structure**
+```
+videos/real
+videos/fake
+```
+- Create Real image dataset:
+```bash
+python gather_examples.py --input videos/real --output dataset/real --detector detector --skip 4
+```
+- Create fake image dataset:
+```bash
+python gather_examples.py --input videos/fake --output dataset/fake --detector detector --skip 1
+``` 
+- Train model:
+```bash
+python train.py --dataset dataset --model model/livenessnet.py --le le.pickle 
+```
