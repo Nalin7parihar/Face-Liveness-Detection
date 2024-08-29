@@ -40,11 +40,11 @@ The training/test loss curves for each experiment are shown below:
 
 ## Results
 - **LivenessNet**
- <br>
 ![liveness1](results/LivenessNet.png)
+
 - **MobileNetV3**
-  <br>
 ![mobilenet1](results/mobilenetv3.png)
+
 ## Requirements:
 
 * **python > 3.6**
