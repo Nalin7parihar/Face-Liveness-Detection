@@ -22,7 +22,32 @@ net = cv2.dnn.readNetFromCaffe(protoPath, modelPath)
 # number of frames read and saved thus far
 vs = cv2.VideoCapture(args["input"])
 read = 0
+if not os.path.exists(args["output"]):
+    os.makedirs(args["output"], exist_ok=True)
+
+# Initialize 'saved' by finding the highest numbered existing .png file
+# in the output directory to avoid overwriting.
 saved = 0
+try:
+    png_files = [f for f in os.listdir(args["output"]) if f.lower().endswith(".png")]
+    if png_files:
+        existing_numbers = []
+        for f_name in png_files:
+            try:
+                # Extract number from filenames like "123.png"
+                num = int(os.path.splitext(f_name)[0])
+                existing_numbers.append(num)
+            except ValueError:
+                # Ignore files not in "number.png" format
+                pass
+        if existing_numbers:
+            saved = max(existing_numbers) + 1
+except OSError as e:
+    print(f"[WARNING] Could not access output directory {args['output']} to determine starting save number: {e}. Starting from 0.")
+    # Fallback to 0 if directory can't be accessed.
+    pass
+
+
 
 # lặp qua các frames từ video file stream
 while True:
@@ -65,4 +90,4 @@ while True:
             print("[INFO] saved {} to disk".format(p))
             
 vs.release()
-cv2.destroyAllWindows()           
+cv2.destroyAllWindows()

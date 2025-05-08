@@ -1,1 +1,6 @@
 venv
+dataset
+my_videos
+dataset.zip
+/*.pickle
+/*.keras
